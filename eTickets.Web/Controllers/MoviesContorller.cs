@@ -1,4 +1,5 @@
 ﻿using eTickets.Web.Data;
+using eTickets.Web.Data.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,15 +7,15 @@ namespace eTickets.Web.Controllers
 {
     public class MoviesController : Controller
     {
-        private readonly AppDbContext _context;
-        public MoviesController(AppDbContext context)
+        private readonly IMoviesService _service;
+        public MoviesController(IMoviesService service)
         {
-            _context = context;
+            _service = service;
         }
 
         public async Task<IActionResult> Index()
         {
-            var data = await _context.Movies.Include(n => n.Cinema).OrderBy(n => n.Name).ToListAsync();
+            var data = await _service.GetAllAsync(n => n.Cinema);
             return View(data);
         }
     }
