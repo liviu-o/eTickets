@@ -16,7 +16,6 @@ namespace eTickets.Web.Controllers
             _service = service;
         }
 
-        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var data = await _service.GetAllAsync();
@@ -41,7 +40,6 @@ namespace eTickets.Web.Controllers
         }
 
         //Get: Actors/Details/1
-        [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
             var actorDetails = await _service.GetByIdAsync(id);
